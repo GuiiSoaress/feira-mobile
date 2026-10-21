@@ -11,26 +11,32 @@
 *{box-sizing:border-box}
 html,body{height:100%;margin:0}
 body{background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;display:flex;flex-direction:column;user-select:none;-webkit-user-select:none}
-header{display:flex;align-items:center;gap:10px;padding:10px 20px;flex-wrap:wrap}
+header{display:flex;align-items:center;gap:10px;padding:8px 20px;flex-wrap:wrap}
 h1{font-size:24px;margin:0 auto 0 0}
 header b{color:var(--mu);font-size:15px}
-.tp,#clear{font-size:17px;padding:11px 18px;border:0;border-radius:12px;font-weight:600;cursor:pointer}
+.tp,#clear,#dkbtn{font-size:16px;padding:10px 16px;border:0;border-radius:12px;font-weight:600;cursor:pointer}
 .tp{background:var(--ac);color:#fff}
+#dkbtn{background:#334155;color:#fff}
+#dkbtn.on{background:#f59e0b;color:#111}
 #clear{background:#e63946;color:#fff}
-main{flex:1;min-height:0;display:grid;grid-template-columns:var(--lw) calc(var(--pw) + 40px) var(--cw);justify-content:center;gap:16px;padding:0 20px 16px}
+main{flex:1;min-height:0;display:grid;grid-template-columns:var(--lw) calc(var(--pw) + 40px) var(--cw);justify-content:center;gap:16px;padding:0 20px 8px}
 .col{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:14px;min-height:0;display:flex;flex-direction:column}
-.col h2{font-size:14px;text-transform:uppercase;letter-spacing:.06em;color:var(--mu);margin:0 0 10px}
+.col h2{font-size:14px;text-transform:uppercase;letter-spacing:.06em;color:var(--mu);margin:0 0 10px;display:flex;justify-content:space-between;align-items:center}
 .pal{display:flex;flex-direction:column;gap:8px;overflow:auto}
 .gt{font-size:13px;font-weight:700;color:var(--ac);margin:8px 0 0;text-transform:uppercase;letter-spacing:.05em}
 .pi{display:flex;align-items:center;gap:10px;padding:11px 12px;border:2px solid var(--bd);border-radius:14px;font-size:18px;font-weight:600;background:var(--bg);touch-action:none;cursor:grab}
 .pi span{font-size:26px}
 .pi small{display:block;font-size:12px;color:var(--mu);font-weight:500}
 .mid{align-items:center;overflow:auto}
-.phone{width:var(--pw);height:var(--ph);flex:none;background:#111;border-radius:38px;padding:12px;box-shadow:0 8px 24px rgba(0,0,0,.25)}
-#screen{height:100%;background:#fff;border-radius:28px;padding:46px 12px 28px;overflow:auto;display:flex;flex-direction:column;gap:10px;color:#222}
+.phone{width:var(--pw);height:var(--ph);flex:none;background:#111;border-radius:38px;padding:12px;box-shadow:0 8px 24px rgba(0,0,0,.25);position:relative}
+#screen{height:100%;background:#fff;border-radius:28px;padding:46px 12px 28px;overflow:auto;display:flex;flex-direction:column;gap:10px;color:#222;transition:background .25s,color .25s}
+#screen.dark{background:#0f172a;color:#f1f5f9}
+#screen.dark .v-card{border-color:#334155;background:#1e293b}
+#screen.dark .v-in{border-color:#475569;color:#cbd5e1}
+#screen.dark .v-tk{border-bottom-color:#334155}
 #screen.over{outline:4px dashed var(--ac);outline-offset:-4px}
 .hint{margin:auto;text-align:center;color:#8a93a3;font-size:18px;padding:20px}
-.it{touch-action:none;border-radius:10px;padding:3px;border:2px solid transparent;cursor:grab;flex:none}
+.it{touch-action:none;border-radius:10px;padding:3px;border:2px solid transparent;cursor:grab;flex:none;transition:border-color .15s,transform .1s}
 .it.sel{border-color:var(--ac)}
 .v-t{font-size:24px;font-weight:700;margin-bottom:4px}
 .v-in{border:1.5px solid #bbb;border-radius:8px;padding:9px;color:#999;font-size:15px;margin-top:6px}
@@ -40,10 +46,12 @@ main{flex:1;min-height:0;display:grid;grid-template-columns:var(--lw) calc(var(-
 .v-ph{height:80px;border-radius:8px;background:linear-gradient(135deg,#fcd34d,#fb923c);display:flex;align-items:center;justify-content:center;font-size:38px}
 .v-gal{display:flex;gap:8px;overflow:hidden}
 .v-gal div{flex:none;width:110px;height:90px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:36px}
-.v-map{height:110px;border-radius:10px;background:repeating-linear-gradient(45deg,#d7e8d0,#d7e8d0 14px,#e6f0e0 14px,#e6f0e0 28px);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:34px;font-size:34px}
+.v-map{height:110px;border-radius:10px;background:repeating-linear-gradient(45deg,#d7e8d0,#d7e8d0 14px,#e6f0e0 14px,#e6f0e0 28px);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:34px}
 .v-map small{font-size:13px;color:#333}
 .v-lk{font-size:30px;font-weight:600;padding:4px}
 .v-tk{padding:9px 4px;border-bottom:1px solid #ddd;font-size:16px}
+#toast{position:absolute;top:52px;left:22px;right:22px;background:rgba(15,23,42,.94);color:#fff;padding:10px 14px;border-radius:14px;font-size:13.5px;font-weight:600;text-align:center;z-index:8;pointer-events:none;opacity:0;transform:translateY(-10px) scale(.95);transition:.22s;box-shadow:0 6px 18px rgba(0,0,0,.3)}
+#toast.on{opacity:1;transform:none}
 #edit{margin-top:10px;width:var(--pw);max-width:100%;display:none;gap:8px;flex-direction:column}
 #edit.on{display:flex}
 #edit input{font-size:18px;padding:10px;border:2px solid var(--bd);border-radius:10px;background:var(--bg);color:var(--tx);width:100%;user-select:text;-webkit-user-select:text}
@@ -52,41 +60,28 @@ main{flex:1;min-height:0;display:grid;grid-template-columns:var(--lw) calc(var(-
 #del{margin-left:auto;font-size:16px;padding:8px 14px;border:0;border-radius:10px;background:var(--bd);color:var(--tx);cursor:pointer}
 .code{padding:0}
 .code h2{padding:14px 14px 0}
-#code{flex:1;margin:0;padding:14px;background:var(--code);color:var(--codetx);border-radius:0 0 16px 16px;font:13px/1.45 ui-monospace,Consolas,Menlo,monospace;overflow:auto;white-space:pre;user-select:text;-webkit-user-select:text}
+.code h2 small{font-size:11px;text-transform:none;font-weight:500;color:var(--ac)}
+#code{flex:1;margin:0;padding:14px;background:var(--code);color:var(--codetx);border-radius:0 0 16px 16px;font:13px/1.48 ui-monospace,Consolas,Menlo,monospace;overflow:auto;white-space:pre;user-select:text;-webkit-user-select:text}
+.c-kw{color:#c084fc;font-weight:600}
+.c-tg{color:#38bdf8}
+.c-st{color:#86efac}
+.c-pr{color:#fcd34d}
+.c-blk{display:block;margin:0 -14px;padding:2px 14px;border-left:4px solid transparent;transition:background .2s;cursor:pointer}
+.c-blk:hover{background:rgba(255,255,255,.05)}
+.c-blk.on{background:rgba(37,99,235,.28);border-left-color:#38bdf8}
 header label{font-size:13px;color:var(--mu);display:flex;flex-direction:column;gap:2px}
-header input[type=range]{width:110px}
-#tabs{display:flex;gap:10px;padding:10px 20px 0}
-#tabs button{font-size:20px;font-weight:700;padding:14px 28px;border:2px solid var(--bd);border-radius:14px;background:var(--card);color:var(--tx);cursor:pointer}
+header input[type=range]{width:100px}
+#tabs{display:flex;gap:10px;padding:8px 20px 0;align-items:center}
+#tabs button{font-size:19px;font-weight:700;padding:12px 24px;border:2px solid var(--bd);border-radius:14px;background:var(--card);color:var(--tx);cursor:pointer}
 #tabs button.on{background:var(--ac);border-color:var(--ac);color:#fff}
-#pres{display:none;flex:1;min-height:0;flex-direction:column;align-items:center;padding:6px 20px 16px}
+#fsbtn{margin-left:auto;font-size:15px !important;padding:10px 16px !important}
+#pres{display:none;flex:1;min-height:0;justify-content:center;align-items:center;padding:6px 20px 8px;gap:48px;flex-direction:row}
 body.pv #pres{display:flex}
 body.pv #hdr,body.pv #app{display:none}
-#pres p{margin:0;color:var(--mu);font-size:16px}
-#mm{flex:1;min-height:0;width:100%;max-width:1500px}
-#mm g[data-b]{cursor:pointer}
-#mm .kid{display:none}
-#mm .kid.show{display:block}
-#mm text{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;pointer-events:none}
-#go{font-size:24px;font-weight:700;padding:16px 36px;border:0;border-radius:16px;background:#16a34a;color:#fff;cursor:pointer}
-body.pv #pres{display:grid;grid-template-columns:340px 1fr;gap:16px;padding:10px 20px 16px}
-#pl{display:flex;flex-direction:column;gap:10px;overflow:auto}
-.pt{display:flex;align-items:center;gap:14px;text-align:left;font-size:24px;font-weight:700;padding:18px 16px;border:2px solid var(--bd);border-left-width:12px;border-radius:14px;background:var(--card);color:var(--tx);cursor:pointer}
-.pt span{font-size:34px}
-.pt.on{color:#fff}
-#pp{background:var(--card);border:1px solid var(--bd);border-top-width:12px;border-radius:20px;padding:28px 44px;display:flex;flex-direction:column;min-height:0;overflow:auto}
-#pi{font-size:clamp(70px,9vw,130px);line-height:1.1}
-#pt{font-size:clamp(36px,4.5vw,68px);margin:6px 0 14px}
-#pk{list-style:none;padding:0;margin:0;flex:1;display:flex;flex-direction:column;justify-content:center;gap:16px}
-#pk li{font-size:clamp(26px,3vw,46px);font-weight:600;padding:8px 0 8px 22px;border-left:8px solid var(--bd)}
-#pn{display:flex;justify-content:space-between;gap:12px;margin-top:18px}
-#pn button{font-size:24px;font-weight:700;padding:16px 32px;border:0;border-radius:14px;background:var(--bd);color:var(--tx);cursor:pointer}
-#pn button:disabled{opacity:.35}
-#pn button.go{background:#16a34a;color:#fff}
-body.pv #pres{display:flex;justify-content:center;align-items:center;padding:8px 20px 16px}
-body.pv #pres{gap:48px;flex-direction:row}
 #big{flex:0 1 38%}
-#big h1{font-size:clamp(40px,6vw,110px);line-height:1.05;margin:0 0 18px;color:var(--ac)}
-#big p{font-size:clamp(18px,2vw,34px);color:var(--mu);margin:0}
+#big h1{font-size:clamp(38px,5.6vw,100px);line-height:1.05;margin:0 0 16px;color:var(--ac)}
+#big p{font-size:clamp(18px,2vw,32px);color:var(--mu);margin:0 0 14px}
+#big small{display:block;font-size:13px;color:var(--mu);opacity:.85}
 @media (max-width:900px){#big{display:none}}
 #ph{position:relative;flex:none;background:#111;border-radius:calc(var(--u)*11);padding:calc(var(--u)*3);box-shadow:0 10px 30px rgba(0,0,0,.35),inset 0 0 0 calc(var(--u)*.5) #2b2b2e}
 #ph::before{content:"";position:absolute;right:calc(var(--u)*-1.2);top:calc(var(--u)*52);width:calc(var(--u)*1.2);height:calc(var(--u)*19);background:#2b2b2e;border-radius:0 calc(var(--u)*.8) calc(var(--u)*.8) 0}
@@ -100,41 +95,85 @@ body.pv #pres{gap:48px;flex-direction:row}
 #hb{position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:calc(var(--u)*46);height:calc(var(--u)*9);background:none;border:0;padding:0;cursor:pointer;z-index:6}
 #hb::after{content:"";position:absolute;left:50%;bottom:calc(var(--u)*2.4);transform:translateX(-50%);width:calc(var(--u)*34);height:calc(var(--u)*1.3);border-radius:calc(var(--u)*1);background:#fff;transition:background .25s}
 #scr.in #hb::after{background:#1d2433}
-#home{padding:calc(var(--u)*17) calc(var(--u)*6) calc(var(--u)*5)}
-#wg{background:rgba(255,255,255,.22);border-radius:calc(var(--u)*6);padding:calc(var(--u)*5);display:flex;flex-direction:column;gap:calc(var(--u)*1.5);margin-bottom:calc(var(--u)*7)}
-#wg b{font-size:calc(var(--u)*7.5)}
-#wg span{font-size:calc(var(--u)*4)}
-#ic{display:grid;grid-template-columns:repeat(3,1fr);gap:calc(var(--u)*6) calc(var(--u)*3)}
+#home{padding:calc(var(--u)*16) calc(var(--u)*6) calc(var(--u)*4);height:100%;display:flex;flex-direction:column}
+#wg{background:rgba(255,255,255,.22);border-radius:calc(var(--u)*6);padding:calc(var(--u)*4.5);display:flex;flex-direction:column;gap:calc(var(--u)*1.2);margin-bottom:calc(var(--u)*5.5)}
+#wg b{font-size:calc(var(--u)*7)}
+#wg span{font-size:calc(var(--u)*3.8)}
+#wg small{font-size:calc(var(--u)*2.7);opacity:.9;margin-top:calc(var(--u)*.5)}
+#ic{display:grid;grid-template-columns:repeat(3,1fr);gap:calc(var(--u)*5) calc(var(--u)*3)}
 .ap{display:flex;flex-direction:column;align-items:center;gap:calc(var(--u)*1.5);cursor:pointer;font:600 calc(var(--u)*3.8)/1.2 system-ui,sans-serif;text-align:center;background:none;border:0;color:#fff;padding:0}
 .ap i{font-style:normal;width:calc(var(--u)*20);height:calc(var(--u)*20);border-radius:calc(var(--u)*5);display:flex;align-items:center;justify-content:center;font-size:calc(var(--u)*10);box-shadow:0 4px 10px rgba(0,0,0,.25)}
 #app2{position:absolute;inset:0;background:#fff;color:#1d2433;transform:scale(.6);opacity:0;pointer-events:none;transition:.25s;display:flex;flex-direction:column;padding-bottom:calc(var(--u)*9)}
 #app2.open{transform:none;opacity:1;pointer-events:auto}
-#ah{display:flex;align-items:center;gap:calc(var(--u)*3);padding:calc(var(--u)*15) calc(var(--u)*5) calc(var(--u)*4);color:#fff;font-size:calc(var(--u)*6.5);font-weight:700}
-#ab{font-size:calc(var(--u)*10);line-height:1;background:none;border:0;color:#fff;cursor:pointer;padding:0 calc(var(--u)*2)}
-#ai{font-size:calc(var(--u)*28);text-align:center;margin-top:calc(var(--u)*6)}
-#ak{list-style:none;padding:calc(var(--u)*6);margin:0;flex:1;display:flex;flex-direction:column;justify-content:center;gap:calc(var(--u)*5)}
-#ak li{font-size:calc(var(--u)*5.6);font-weight:700;padding-left:calc(var(--u)*4);border-left:calc(var(--u)*1.5) solid}
+#ah{display:flex;align-items:center;gap:calc(var(--u)*2.5);padding:calc(var(--u)*15) calc(var(--u)*4) calc(var(--u)*4);color:#fff;font-size:calc(var(--u)*6);font-weight:700}
+#an{flex:1}
+#ab,.anav{font-size:calc(var(--u)*9);line-height:1;background:rgba(255,255,255,.18);border:0;border-radius:calc(var(--u)*2.5);color:#fff;cursor:pointer;padding:calc(var(--u)*.6) calc(var(--u)*2.4)}
+.anav{font-size:calc(var(--u)*4.8);padding:calc(var(--u)*1.5) calc(var(--u)*2.6)}
+#ai{font-size:calc(var(--u)*26);text-align:center;margin-top:calc(var(--u)*5)}
+#ak{list-style:none;padding:calc(var(--u)*5.5);margin:0;flex:1;display:flex;flex-direction:column;justify-content:center;gap:calc(var(--u)*4.5)}
+#ak li{font-size:calc(var(--u)*5.4);font-weight:700;padding-left:calc(var(--u)*4);border-left:calc(var(--u)*1.5) solid}
 #ak small{display:block;font-size:calc(var(--u)*3.8);font-weight:500;color:#6b7585;margin-top:calc(var(--u)*.6)}
-#af{font-size:calc(var(--u)*3.3);line-height:1.35;color:#6b7585;padding:0 calc(var(--u)*6) calc(var(--u)*3);margin:0}
+#af{font-size:calc(var(--u)*3.2);line-height:1.35;color:#6b7585;padding:0 calc(var(--u)*6) calc(var(--u)*3);margin:0}
 #af:empty{display:none}
 #ghost{position:fixed;pointer-events:none;z-index:9;padding:12px 18px;background:var(--ac);color:#fff;border-radius:12px;font-weight:600;font-size:18px;display:none;opacity:.9}
-.phone{position:relative}
 .phone .isl{position:absolute;top:20px;left:50%;transform:translateX(-50%);width:86px;height:23px;background:#000;border-radius:14px;z-index:3;pointer-events:none}
-.phone .sbb{position:absolute;top:16px;left:36px;right:36px;height:31px;display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:700;color:#111;z-index:3;pointer-events:none}
+.phone .sbb{position:absolute;top:16px;left:36px;right:36px;height:31px;display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:700;color:#111;z-index:3;pointer-events:none;transition:color .25s}
+.phone.dark .sbb{color:#f1f5f9}
 .phone .sbb .ico{display:flex;align-items:center;gap:5px}
 .phone .sbb svg{height:11px;width:auto;fill:currentColor;display:block}
-.phone .hbar{position:absolute;bottom:19px;left:50%;transform:translateX(-50%);width:110px;height:4px;border-radius:3px;background:#111;opacity:.85;pointer-events:none;z-index:3}
+.phone .hbar{position:absolute;bottom:19px;left:50%;transform:translateX(-50%);width:110px;height:4px;border-radius:3px;background:#111;opacity:.85;pointer-events:none;z-index:3;transition:background .25s}
+.phone.dark .hbar{background:#f1f5f9}
+#cbo{text-align:center;font-size:11.5px;color:var(--mu);padding:3px 16px 6px;letter-spacing:.02em;opacity:.85}
 @media (max-width:900px){body{height:auto}main{grid-template-columns:1fr}.phone{margin:0 auto}}
 </style>
 </head>
 <body>
-<div id="tabs"><button data-t="pres">📖 Apresentação</button><button data-t="app">📱 Monte seu app</button></div>
-<section id="pres"><div id="big"><h1>Desenvolvedor de Aplicativos</h1><p>A profissão por trás dos aplicativos que usamos todos os dias</p></div><div id="ph"><div id="scr"><div id="isl"></div><div id="sb"><span>9:41</span><span class="ico"></span></div><div id="home"><div id="wg"><b>Desenvolvedor de Aplicativos</b><span>A profissão por trás dos aplicativos que usamos todos os dias</span></div><div id="ic"></div></div><div id="app2"><div id="ah"><button id="ab">‹</button><span id="an"></span></div><div id="ai"></div><ul id="ak"></ul><div id="af"></div></div><button id="hb" aria-label="Voltar à tela inicial"></button></div></div></section>
+<div id="tabs">
+  <button data-t="pres">📖 Apresentação</button>
+  <button data-t="app">📱 Monte seu app</button>
+  <button id="fsbtn" title="Alternar Tela Cheia">⛶ Tela cheia</button>
+</div>
+<section id="pres">
+  <div id="big">
+    <h1>Desenvolvedor de Aplicativos</h1>
+    <p>A profissão por trás dos aplicativos que usamos todos os dias</p>
+    <small>Ocupação: Desenvolvedor Mobile • CBO 2124-05 (Analista de Desenvolvimento de Sistemas) / CBO 3171-10 (Desenvolvedor de Sistemas de TI)</small>
+  </div>
+  <div id="ph">
+    <div id="scr">
+      <div id="isl"></div>
+      <div id="sb"><span>9:41</span><span class="ico"></span></div>
+      <div id="home">
+        <div id="wg">
+          <b>Desenvolvedor de Aplicativos</b>
+          <span>A profissão por trás dos aplicativos que usamos todos os dias</span>
+          <small>Desenvolvedor Mobile • CBO 2124-05 / 3171-10</small>
+        </div>
+        <div id="ic"></div>
+      </div>
+      <div id="app2">
+        <div id="ah">
+          <button id="ab" title="Voltar (Esc)">‹</button>
+          <span id="an"></span>
+          <button class="anav" id="aprev" title="Anterior (⬅️)">◀</button>
+          <button class="anav" id="anext" title="Próximo (➡️)">▶</button>
+        </div>
+        <div id="ai"></div>
+        <ul id="ak"></ul>
+        <div id="af"></div>
+      </div>
+      <button id="hb" aria-label="Voltar à tela inicial"></button>
+    </div>
+  </div>
+</section>
 <header id="hdr">
   <h1>Monte seu app</h1><b>Comece por um app pronto:</b>
   <button class="tp" data-tp="lanchonete">🍔 Lanchonete</button>
   <button class="tp" data-tp="social">💬 Rede social</button>
+  <button class="tp" data-tp="musica">🎵 Música</button>
+  <button class="tp" data-tp="loja">👟 Loja</button>
   <button class="tp" data-tp="tarefas">✅ Tarefas</button>
+  <button id="dkbtn" title="Alternar tema do aplicativo">🌙 Modo Escuro</button>
   <button id="clear">Limpar</button>
   <label>Largura da lista<input type="range" min="180" max="400" value="240" data-v="--lw"></label>
   <label>Largura do celular<input type="range" min="260" max="460" value="330" data-v="--pw"></label>
@@ -144,11 +183,12 @@ body.pv #pres{gap:48px;flex-direction:row}
 <main id="app">
   <section class="col"><h2>Blocos prontos</h2><div class="pal" id="pal"></div></section>
   <section class="col mid">
-    <div class="phone"><div class="isl"></div><div class="sbb"><span>9:41</span><span class="ico"></span></div><div id="screen"></div><div class="hbar"></div></div>
+    <div class="phone" id="phoneBox"><div class="isl"></div><div class="sbb"><span>9:41</span><span class="ico"></span></div><div id="toast"></div><div id="screen"></div><div class="hbar"></div></div>
     <div id="edit"><input type="text" id="txt"><div class="sw" id="sw"></div></div>
   </section>
-  <section class="col code"><h2>Código React Native</h2><pre id="code"></pre></section>
+  <section class="col code"><h2><span>Código React Native</span><small>Clique em um bloco para destacar</small></h2><pre id="code"></pre></section>
 </main>
+<footer id="cbo">Desenvolvedor Mobile — CBO 2124-05 (Analista de Desenvolvimento de Sistemas) • CBO 3171-10 (Desenvolvedor de Sistemas de TI)</footer>
 <div id="ghost"></div>
 <script>
 var T={
@@ -170,6 +210,8 @@ var T={
 var TP={
  lanchonete:[['cabecalho','Lanchonete do Zé','#e63946'],['galeria'],['produto','X-Burger, R$ 25','#16a34a'],['produto','Suco de laranja, R$ 8','#16a34a'],['whatsapp','Fazer pedido']],
  social:[['cabecalho','MeuGram','#7c3aed'],['galeria'],['curtir','Curtir','#e63946'],['whatsapp','Chamar no chat']],
+ musica:[['cabecalho','SpotMusic','#16a34a'],['produto','Ingresso Show Ao Vivo, R$ 60','#7c3aed'],['lista','Pop Hits, Rock Nacional, Eletrônica'],['curtir','Favoritar playlist','#e63946']],
+ loja:[['cabecalho','SneakerStore','#2563eb'],['produto','Tênis Esportivo, R$ 199','#16a34a'],['produto','Mochila Casual, R$ 129','#2563eb'],['whatsapp','Comprar pelo WhatsApp']],
  tarefas:[['cabecalho','Minhas Tarefas','#16a34a'],['tarefas','Estudar, Treinar, Descansar']]
 };
 var COLORS=['#e63946','#2563eb','#16a34a','#f59e0b','#7c3aed','#1d3557'];
@@ -191,9 +233,13 @@ var STY={
  feita:"  feita: { textDecorationLine: 'line-through', color: '#999' },"
 };
 var TS={titulo:['titulo'],texto:['texto'],imagem:['imagem'],campo:['campo'],botao:['botao','botaoTexto'],lista:['item'],cabecalho:['cabecalho'],login:['titulo','campo','botao','botaoTexto'],produto:['cartao','botao','botaoTexto'],curtir:[],whatsapp:['whats','botaoTexto'],mapa:['mapa'],galeria:['galeria'],tarefas:['tarefa','feita']};
-var items=[],sel=null,nid=1;
+var items=[],sel=null,nid=1,darkApp=false,toastTm=null;
 var $=function(id){return document.getElementById(id)};
 var screen=$('screen'),ghost=$('ghost');
+function showToast(msg){
+  var el=$('toast');el.textContent=msg;el.classList.add('on');
+  clearTimeout(toastTm);toastTm=setTimeout(function(){el.classList.remove('on')},2200);
+}
 function pi(k){return '<div class="pi" data-k="'+k+'"><span>'+T[k].i+'</span><div>'+T[k].n+'<small>'+T[k].g+'</small></div></div>'}
 $('pal').innerHTML='<div class="gt">Blocos prontos</div>'+['cabecalho','login','produto','curtir','whatsapp','mapa','galeria','tarefas'].map(pi).join('')+'<div class="gt">Blocos básicos</div>'+['titulo','texto','imagem','campo','botao','lista'].map(pi).join('');
 $('sw').innerHTML=COLORS.map(function(c){return '<i data-c="'+c+'" style="background:'+c+'"></i>'}).join('')+'<button id="del">Remover</button>';
@@ -203,8 +249,8 @@ function cur(){return items.find(function(x){return x.id===sel})}
 function parts(t){return t.split(',').map(function(s){return s.trim()})}
 
 function pemoji(n){
-  var t=String(n||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
-  var m=[[/burger|hamburg|lanche|x-|cachorro|hot ?dog/,'🍔'],[/pizza/,'🍕'],[/suco|refri|bebida|agua|vitamina/,'🧃'],[/cafe|capuccino/,'☕'],[/sorvete|picole|acai/,'🍦'],[/bolo|doce|torta|brigadeiro/,'🍰'],[/tenis|sapato|chinelo|bota/,'👟'],[/camis|blusa|roupa/,'👕'],[/calca|short|bermuda/,'👖'],[/celular|telefone/,'📱'],[/fone/,'🎧'],[/livro/,'📚'],[/mochila|bolsa/,'🎒']];
+  var t=String(n||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+  var m=[[/burger|hamburg|lanche|x-|cachorro|hot ?dog/,'🍔'],[/pizza/,'🍕'],[/suco|refri|bebida|agua|vitamina/,'🧃'],[/cafe|capuccino/,'☕'],[/sorvete|picole|acai/,'🍦'],[/bolo|doce|torta|brigadeiro/,'🍰'],[/tenis|sapato|chinelo|bota/,'👟'],[/camis|blusa|roupa/,'👕'],[/calca|short|bermuda/,'👖'],[/celular|telefone/,'📱'],[/fone/,'🎧'],[/ingresso|show|musica|festa/,'🎵'],[/livro/,'📚'],[/mochila|bolsa/,'🎒']];
   for(var i=0;i<m.length;i++)if(m[i][0].test(t))return m[i][1];
   return '🛍️';
 }
@@ -213,12 +259,12 @@ function ja(s){return String(s).replace(/"/g,'&quot;')}
 function view(x){
   var p=parts(x.t);
   switch(x.type){
-  case 'titulo':return '<div class="v-t" style="color:'+x.c+'">'+esc(x.t)+'</div>';
-  case 'texto':return '<div style="font-size:16px;color:'+x.c+'">'+esc(x.t)+'</div>';
+  case 'titulo':return '<div class="v-t" style="color:'+(darkApp&&x.c==='#1d3557'?'#93c5fd':x.c)+'">'+esc(x.t)+'</div>';
+  case 'texto':return '<div style="font-size:16px;color:'+(darkApp&&x.c==='#333333'?'#e2e8f0':x.c)+'">'+esc(x.t)+'</div>';
   case 'imagem':return '<div class="v-ph" style="height:120px">🏞️</div>';
   case 'campo':return '<div class="v-in">'+esc(x.t)+'</div>';
   case 'botao':return '<div class="v-bt" style="background:'+x.c+'">'+esc(x.t)+'</div>';
-  case 'lista':return p.map(function(s){return '<div class="v-tk">'+esc(s)+'</div>'}).join('');
+  case 'lista':return p.map(function(s){return '<div class="v-tk">• '+esc(s)+'</div>'}).join('');
   case 'cabecalho':return '<div class="v-cab" style="background:'+x.c+'">☰ &nbsp;'+esc(x.t)+'</div>';
   case 'login':return '<div class="v-t">'+esc(x.t)+'</div><div class="v-in">E-mail</div><div class="v-in">Senha ••••</div><div class="v-bt" style="background:'+x.c+'">'+esc(x.t)+'</div>';
   case 'produto':return '<div class="v-card"><div class="v-ph">'+pemoji(p[0])+'</div><b>'+esc(p[0]||'')+'</b><div>'+esc(p[1]||'')+'</div><div class="v-bt" style="background:'+x.c+'">Comprar</div></div>';
@@ -251,6 +297,13 @@ function jsx(x,n){
   case 'tarefas':return "      <FlatList\n        data={["+p.map(function(s){return "'"+q(s)+"'"}).join(', ')+"]}\n        renderItem={({ item }) => (\n          <TouchableOpacity onPress={() => setFeitas"+n+"(prev => ({ ...prev, [item]: !prev[item] }))}>\n            <Text style={[styles.tarefa, feitas"+n+"[item] && styles.feita]}>\n              {feitas"+n+"[item] ? '☑' : '☐'} {item}\n            </Text>\n          </TouchableOpacity>\n        )}\n      />";
   }
 }
+function hi(s){
+  return esc(s)
+    .replace(/('[^']*'|"[^"]*")/g,'<span class="c-st">$1</span>')
+    .replace(/\b(import|from|export|default|function|const|return|true|false)\b/g,'<span class="c-kw">$1</span>')
+    .replace(/(&lt;\/?[A-Z][A-Za-z]*)/g,'<span class="c-tg">$1</span>')
+    .replace(/\b(style|source|placeholder|onPress|data|renderItem|initialRegion|coordinate|title|horizontal|secureTextEntry)\b/g,'<span class="c-pr">$1</span>');
+}
 function renderCode(){
   var imp={View:1},sty={},hooks=[],mapa=false,k=0,kt=0;
   items.forEach(function(x){
@@ -262,11 +315,18 @@ function renderCode(){
     var n='';
     if(x.type==='curtir'){k++;n=k>1?k:'';hooks.push("  const [curtiu"+n+", setCurtiu"+n+"] = useState(false);")}
     if(x.type==='tarefas'){kt++;n=kt>1?kt:'';hooks.push("  const [feitas"+n+", setFeitas"+n+"] = useState({});")}
-    return jsx(x,n);
+    return '<span class="c-blk'+(x.id===sel?' on':'')+'" data-cid="'+x.id+'">'+hi(jsx(x,n))+'</span>';
   }).join('\n');
-  var out="import React"+(k||kt?", { useState }":"")+" from 'react';\nimport { "+Object.keys(imp).concat(['StyleSheet']).join(', ')+" } from 'react-native';\n"+(mapa?"import MapView, { Marker } from 'react-native-maps';\n":"")+"\nexport default function App() {\n"+(hooks.length?hooks.join('\n')+"\n\n":"")+"  return (\n    <View style={styles.container}>\n"+(body?body+'\n':'')+"    </View>\n  );\n}\n\nconst styles = StyleSheet.create({\n  container: { flex: 1, padding: 16, gap: 12 },\n"+Object.keys(sty).map(function(s){return STY[s]}).join('\n')+"\n});\n";
-  $('code').textContent=out;
+  var top="import React"+(k||kt?", { useState }":"")+" from 'react';\nimport { "+Object.keys(imp).concat(['StyleSheet']).join(', ')+" } from 'react-native';\n"+(mapa?"import MapView, { Marker } from 'react-native-maps';\n":"")+"\nexport default function App() {\n"+(hooks.length?hooks.join('\n')+"\n\n":"")+"  return (\n    <View style={styles.container}>\n";
+  var bot="    </View>\n  );\n}\n\nconst styles = StyleSheet.create({\n  container: { flex: 1, padding: 16, gap: 12"+(darkApp?", backgroundColor: '#0f172a'":"")+" },\n"+Object.keys(sty).map(function(s){return STY[s]}).join('\n')+"\n});\n";
+  $('code').innerHTML=hi(top)+(body?body+'\n':'')+hi(bot);
+  var active=$('code').querySelector('.c-blk.on');
+  if(active)active.scrollIntoView({block:'nearest',behavior:'smooth'});
 }
+$('code').addEventListener('click',function(e){
+  var b=e.target.closest('.c-blk');
+  if(b){sel=+b.dataset.cid;all();var el=screen.querySelector('.it.sel');if(el)el.scrollIntoView({block:'nearest',behavior:'smooth'})}
+});
 function renderEdit(){
   var x=cur(),e=$('edit');
   if(!x){e.classList.remove('on');return}
@@ -284,6 +344,14 @@ $('sw').addEventListener('click',function(e){
   if(e.target.id==='del'&&cur()){items=items.filter(function(i){return i.id!==sel});sel=null;all()}
 });
 $('clear').onclick=function(){items=[];sel=null;all()};
+$('dkbtn').onclick=function(){
+  darkApp=!darkApp;
+  screen.classList.toggle('dark',darkApp);
+  $('phoneBox').classList.toggle('dark',darkApp);
+  this.classList.toggle('on',darkApp);
+  this.textContent=darkApp?'☀️ Modo Claro':'🌙 Modo Escuro';
+  part();
+};
 function add(k,at,t,c){
   var d=T[k],o={id:nid++,type:k,t:t!=null?t:d.t,c:c||d.c,on:false,done:{}};
   if(at==null)items.push(o);else items.splice(at,0,o);
@@ -315,19 +383,24 @@ document.addEventListener('pointerup',function(e){
   if(!drag)return;
   var d=drag;drag=null;ghost.style.display='none';screen.classList.remove('over');
   if(!d.moved){
-    if(d.k)add(d.k);
+    if(d.k){add(d.k);showToast('✨ Bloco "'+T[d.k].n+'" adicionado!')}
     else{
       sel=d.id;var x=cur2(d.id),r=e.target.closest('[data-r]');
-      if(x.type==='curtir')x.on=!x.on;
-      if(x.type==='tarefas'&&r){x.done[r.dataset.r]=!x.done[r.dataset.r]}
+      if(x.type==='curtir'){x.on=!x.on;showToast(x.on?'❤️ Você curtiu isso!':'🤍 Curtida removida')}
+      else if(x.type==='tarefas'&&r){x.done[r.dataset.r]=!x.done[r.dataset.r];showToast(x.done[r.dataset.r]?'✅ Tarefa concluída!':'☐ Tarefa reaberta')}
+      else if(x.type==='botao'){showToast('🔔 Ação: '+x.t)}
+      else if(x.type==='produto'){showToast('🛒 Adicionado ao carrinho: '+parts(x.t)[0])}
+      else if(x.type==='whatsapp'){showToast('📞 Abrindo conversa no WhatsApp...')}
+      else if(x.type==='login'){showToast('🔐 Login efetuado com sucesso!')}
+      else if(x.type==='mapa'){showToast('📍 GPS: '+x.t)}
     }
     all();return;
   }
-  if(d.k){add(d.k,inScreen(e)?idxAt(e.clientY):null)}
+  if(d.k){add(d.k,inScreen(e)?idxAt(e.clientY):null);showToast('✨ Bloco "'+T[d.k].n+'" adicionado!')}
   else{
     var i=items.findIndex(function(x){return x.id===d.id}),o=items[i];
     if(inScreen(e)){var at=idxAt(e.clientY);items.splice(i,1);if(at>i)at--;items.splice(at,0,o);sel=o.id}
-    else{items.splice(i,1);sel=null}
+    else{items.splice(i,1);sel=null;showToast('🗑️ Bloco removido')}
   }
   all();
 });
@@ -344,35 +417,59 @@ var B=[
  {n:'Remuneração',i:'💰',c:'#db2777',f:'Estimativa de mercado no Brasil. Fonte: Guia Salarial 2026, Robert Half. O valor principal é a mediana, e a faixa vai do 25º ao 75º percentil.',k:['Júnior: cerca de R$&nbsp;6.850<small>por mês, com faixa de R$&nbsp;6.050 a R$&nbsp;8.750</small>','Pleno: cerca de R$&nbsp;11.750<small>por mês, com faixa de R$&nbsp;8.950 a R$&nbsp;15.050</small>','Sênior: cerca de R$&nbsp;16.950<small>por mês, com faixa de R$&nbsp;12.950 a R$&nbsp;21.800</small>']},
  {n:'O que ajuda',i:'⭐',c:'#0891b2',k:['Curiosidade e vontade de aprender sempre','Paciência para encontrar e corrigir erros','Não precisa ser craque em matemática']}
 ];
+var curB=-1;
 var ICS=B.map(function(b,k){return '<button class="ap" data-i="'+k+'"><i style="background:'+b.c+'">'+b.i+'</i>'+b.n+'</button>'}).join('')+'<button class="ap" data-i="go"><i style="background:#16a34a">🚀</i>Monte seu app</button>';
 $('ic').innerHTML=ICS;
-$('ic').addEventListener('click',function(e){
-  var t=e.target.closest('.ap');if(!t)return;
-  if(t.dataset.i==='go'){tab('app');return}
-  var b=B[+t.dataset.i];
+function openB(idx){
+  if(idx>=B.length){closeApp();tab('app');return}
+  if(idx<0)idx=B.length-1;
+  curB=idx;
+  var b=B[idx];
   $('ah').style.background=b.c;$('an').textContent=b.n;$('ai').textContent=b.i;$('af').textContent=b.f||'';
   $('ak').innerHTML=b.k.map(function(x){return '<li style="border-left-color:'+b.c+'">'+x+'</li>'}).join('');
   $('app2').classList.add('open');$('scr').classList.add('in');
+}
+$('ic').addEventListener('click',function(e){
+  var t=e.target.closest('.ap');if(!t)return;
+  if(t.dataset.i==='go'){tab('app');return}
+  openB(+t.dataset.i);
 });
-function closeApp(){$('app2').classList.remove('open');$('scr').classList.remove('in')}
+function closeApp(){curB=-1;$('app2').classList.remove('open');$('scr').classList.remove('in')}
 $('ab').onclick=closeApp;$('hb').onclick=closeApp;
+$('aprev').onclick=function(){if(curB>=0)openB(curB-1)};
+$('anext').onclick=function(){if(curB>=0)openB(curB+1)};
+document.addEventListener('keydown',function(e){
+  if(!document.body.classList.contains('pv'))return;
+  if(e.key==='Escape'&&curB>=0)closeApp();
+  else if(e.key==='ArrowRight')openB(curB<0?0:curB+1);
+  else if(e.key==='ArrowLeft'&&curB>=0)openB(curB-1);
+});
+$('fsbtn').onclick=function(){
+  if(!document.fullscreenElement)document.documentElement.requestFullscreen().catch(function(){});
+  else document.exitFullscreen().catch(function(){});
+};
 var SBI='<svg viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx=".8"/><rect x="5" y="5.5" width="3" height="6.5" rx=".8"/><rect x="10" y="3" width="3" height="9" rx=".8"/><rect x="15" y="0" width="3" height="12" rx=".8"/></svg>'+'<svg viewBox="0 0 16 12"><path d="M1 4.2a10.5 10.5 0 0 1 14 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M3.5 6.9a6.8 6.8 0 0 1 9 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M6 9.4a3 3 0 0 1 4 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="8" cy="11" r="1"/></svg>'+'<svg viewBox="0 0 27 12"><rect x=".5" y=".5" width="22" height="11" rx="3.2" fill="none" stroke="currentColor" opacity=".45"/><rect x="2" y="2" width="19" height="8" rx="2"/><path d="M24.5 4v4a2 2 0 0 0 0-4z" opacity=".45"/></svg>';
 document.querySelectorAll('.ico').forEach(function(e){e.innerHTML=SBI});
 function fit(){
-  var p=$('pres'),b=$('big'),h=p.clientHeight-24,w=p.clientWidth-40-(b.offsetWidth?b.offsetWidth+48:0);if(h<=0)return;
+  var p=$('pres'),b=$('big'),h=p.clientHeight-16,w=p.clientWidth-40-(b.offsetWidth?b.offsetWidth+48:0);if(h<=0)return;
   var ph=Math.min(h,w*18.5/9,980),pw=ph*9/18.5,e=$('ph');
   e.style.height=ph+'px';e.style.width=pw+'px';e.style.setProperty('--u',(pw/100)+'px');
 }
 window.addEventListener('resize',fit);
 function tab(t){
   document.body.classList.toggle('pv',t==='pres');if(t==='pres')requestAnimationFrame(fit);
-  document.querySelectorAll('#tabs button').forEach(function(b){b.classList.toggle('on',b.dataset.t===t)});
+  document.querySelectorAll('#tabs button[data-t]').forEach(function(b){b.classList.toggle('on',b.dataset.t===t)});
 }
-document.querySelectorAll('#tabs button').forEach(function(b){b.onclick=function(){tab(b.dataset.t)}});
+document.querySelectorAll('#tabs button[data-t]').forEach(function(b){b.onclick=function(){tab(b.dataset.t)}});
 tab('pres');
 all();
 var IDLE_MS=120000,idle=null;
-function resetFeira(){items=[];sel=null;nid=1;all();closeApp();tab('pres')}
+function resetFeira(){
+  items=[];sel=null;nid=1;darkApp=false;
+  screen.classList.remove('dark');$('phoneBox').classList.remove('dark');
+  $('dkbtn').classList.remove('on');$('dkbtn').textContent='🌙 Modo Escuro';
+  all();closeApp();tab('pres');
+}
 function bump(){clearTimeout(idle);idle=setTimeout(resetFeira,IDLE_MS)}
 ['pointerdown','pointermove','keydown','wheel','touchstart','input'].forEach(function(ev){document.addEventListener(ev,bump,{passive:true,capture:true})});
 bump();
